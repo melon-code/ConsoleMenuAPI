@@ -9,7 +9,7 @@ namespace ConsoleMenuAPI {
         readonly bool hasExitItem = false;
 
         bool IsExitSelected => hasExitItem && CurrentItem is ExitItem;
-        bool IsContinueSelected => hasExitItem && CurrentItem is ContinueItem;
+        bool IsContinueSelected => hasContinueItem && CurrentItem is ContinueItem;
         int ItemsCount { get { return Items.Count; } }
         protected IList<IMenuItem> Items { get; }
         protected bool IsEnd { get; set; }
@@ -17,25 +17,44 @@ namespace ConsoleMenuAPI {
         protected IMenuItem CurrentItem => Items[CurrentPosition];
         public MenuEndResult EndResult { get; protected set; }
 
-        public ConsoleMenu(IList<IMenuItem> menuItems) {
+        protected ConsoleMenu(IList<IMenuItem> menuItems) {
             Items = menuItems;
         }
 
-        public ConsoleMenu(IList<IMenuItem> menuItems, string exitTitle) : this(menuItems) {
+        protected ConsoleMenu(IList<IMenuItem> menuItems, string exitTitle) : this(menuItems) {
             Items.Add(new ExitItem(exitTitle));
             hasExitItem = true;
         }
 
-        public ConsoleMenu(IList<IMenuItem> menuItems, string exitTitle, string continueTitle) : this(menuItems, exitTitle) {
+        protected ConsoleMenu(IList<IMenuItem> menuItems, string exitTitle, string continueTitle) : this(menuItems, exitTitle) {
             Items.Insert(0, new ContinueItem(continueTitle));
             hasContinueItem = true;
         }
 
-        public void UpdateItemsNames(IList<string> updatedNames) {
+        public void UpdateItemsNames(IList<string> updatedNames) { // todo
             for (int i = 0; i < updatedNames.Count; i++)
                 Items[i].ChangeName(updatedNames[i]);
             if (hasExitItem)
                 Items[ItemsCount - 1].ChangeName(Localization.ExitString);
+        }
+
+        protected T GetValue<T, Type>(int index) where Type : IMenuValueItem<T> {
+            var item = Items[index];
+            if (item is Type)
+                return ((Type)item).Value;
+            throw new ArgumentException();
+        }
+
+        protected int GetInt(int index) {
+            return GetValue<int, IntMenuItem>(index);
+        }
+
+        protected bool GetBool(int index) {
+            return GetValue<bool, BoolMenuItem>(index);
+        }
+
+        protected ConsoleMenu GetInsertedMenu(int index) {
+            return GetValue<ConsoleMenu, InsertedMenuItem>(index);
         }
 
         public MenuEndResult ShowDialog() {
@@ -85,7 +104,7 @@ namespace ConsoleMenuAPI {
                 ProcessInput(input);
         }
 
-        public bool Navigation(ConsoleKeyInfo info) {
+        protected bool Navigation(ConsoleKeyInfo info) {
             switch (info.Key) {
                 case ConsoleKey.DownArrow:
                     IncreaseCurrentPosition();
@@ -114,6 +133,19 @@ namespace ConsoleMenuAPI {
             return false;
         }
 
-        public abstract void ProcessInput(ConsoleKey input);
+        protected void ProcessInputByItem(ConsoleKey input) {
+            CurrentItem.ProcessInput(input);
+        }
+
+        protected abstract void ProcessInput(ConsoleKey input);
+    }
+
+    public class StandardConsoleMenu : ConsoleMenu {
+        public StandardConsoleMenu(IList<IMenuItem> menuItems) : base(menuItems) {
+        }
+
+        protected override void ProcessInput(ConsoleKey input) {
+            ProcessInputByItem(input);
+        }
     }
 }

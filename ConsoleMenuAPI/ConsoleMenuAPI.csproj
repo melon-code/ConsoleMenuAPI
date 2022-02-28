@@ -45,12 +45,14 @@
     <Compile Include="Localization\Localization.cs" />
     <Compile Include="Localization\LocalizationDictionary\LocalizationDictionary.cs" />
     <Compile Include="MenuItems\BoolMenuItem.cs" />
-    <Compile Include="Class1.cs" />
     <Compile Include="ConsoleMenu.cs" />
+    <Compile Include="MenuItems\ContinueItem.cs" />
     <Compile Include="MenuItems\DependencyBoolMenuItem.cs" />
     <Compile Include="MenuItems\DependencyItem.cs" />
+    <Compile Include="MenuItems\ExitItem.cs" />
     <Compile Include="MenuItems\IMenuItem.cs" />
     <Compile Include="MenuItems\IMenuValueItem.cs" />
+    <Compile Include="MenuItems\InsertedMenuItem.cs" />
     <Compile Include="MenuItems\IntMenuItem.cs" />
     <Compile Include="MenuEndResult.cs" />
     <Compile Include="MenuItems\MenuItem.cs" />
