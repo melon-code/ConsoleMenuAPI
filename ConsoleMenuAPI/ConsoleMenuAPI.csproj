@@ -55,8 +55,8 @@
     <Compile Include="MenuItems\InsertedMenuItem.cs" />
     <Compile Include="MenuItems\IntMenuItem.cs" />
     <Compile Include="MenuEndResult.cs" />
-    <Compile Include="MenuItems\MenuItem.cs" />
     <Compile Include="MenuItems\MenuItemBase.cs" />
+    <Compile Include="MenuItems\StringMenuItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="MenuItems\ValueBasedItem.cs" />
     <Compile Include="Localization\LocalizationDictionary\RusLangDictionary.cs" />

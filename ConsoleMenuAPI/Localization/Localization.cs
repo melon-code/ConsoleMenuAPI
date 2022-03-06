@@ -12,5 +12,9 @@ namespace ConsoleMenuAPI {
         public static void ChangeLanguage(LocalizationDictionary dictionary) {
             currentDictionary = dictionary;
         }
+
+        public static string GetString(int key) {
+            return currentDictionary.GetItem(key);
+        }
     }
 }
