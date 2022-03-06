@@ -24,8 +24,8 @@ namespace ConsoleMenuAPI {
         }
 
 
-        public override void Draw() {
-            Console.WriteLine("\t" + Name + string.Format(" < {0} >", Value) + "\n");
+        public override string GetString() {
+            return Name + string.Format(" < {0} >", Value);
         }
 
         public void IncrementValue() {
@@ -62,7 +62,7 @@ namespace ConsoleMenuAPI {
             switch (input) {
                 case ConsoleKey.Enter:
                     InputValue();
-                    Draw();
+                    GetString();
                     break;
                 case ConsoleKey.LeftArrow:
                     DecrementValue();

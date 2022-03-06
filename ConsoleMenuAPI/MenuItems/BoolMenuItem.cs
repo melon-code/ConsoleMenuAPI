@@ -5,8 +5,8 @@ namespace ConsoleMenuAPI {
         public BoolMenuItem(string name, bool defaultValue) : base(name, defaultValue) {
         }
 
-        public override void Draw() {
-            Console.WriteLine("\t" + Name + string.Format(" < {0} >", Value ? Localization.OnTitle : Localization.OffTitle) + "\n");
+        public override string GetString() {
+            return Name + string.Format(" < {0} >", Value ? Localization.OnTitle : Localization.OffTitle);
         }
 
         public virtual void ChangeValue() {

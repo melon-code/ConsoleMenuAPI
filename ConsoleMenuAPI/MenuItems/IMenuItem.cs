@@ -6,7 +6,7 @@ namespace ConsoleMenuAPI {
         bool Interactive { get; set; }
         string Name { get; }
 
-        void Draw();
+        string GetString();
         void ProcessInput(ConsoleKey input);
         void ChangeName(string newName);
     }

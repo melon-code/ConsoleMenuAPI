@@ -5,8 +5,8 @@ namespace ConsoleMenuAPI {
         public StringMenuItem(string name) : base(name) {
         }
 
-        public override void Draw() {
-            Console.Write("\t" + Name + "\n\n");
+        public override string GetString() {
+            return Name;
         }
     }
 }

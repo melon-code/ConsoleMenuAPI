@@ -3,13 +3,10 @@ using System.Collections.Generic;
 
 namespace ConsoleMenuAPI {
     public abstract class ConsoleMenu {
-        const string cursorMenuString = "\t---> ";
-
-        readonly bool hasContinueItem = false;
         readonly bool hasExitItem = false;
 
-        bool IsExitSelected => hasExitItem && CurrentItem is ExitItem;
-        bool IsContinueSelected => hasContinueItem && CurrentItem is ContinueItem;
+        bool IsExitSelected => CurrentItem is ExitItem;
+        bool IsContinueSelected => CurrentItem is ContinueItem;
         int ItemsCount { get { return Items.Count; } }
         protected IList<IMenuItem> Items { get; }
         protected bool IsEnd { get; set; }
@@ -28,7 +25,6 @@ namespace ConsoleMenuAPI {
 
         protected ConsoleMenu(IList<IMenuItem> menuItems, string exitTitle, string continueTitle) : this(menuItems, exitTitle) {
             Items.Insert(0, new ContinueItem(continueTitle));
-            hasContinueItem = true;
         }
 
         public void UpdateItemsNames(IList<string> updatedNames) { // todo
@@ -69,12 +65,9 @@ namespace ConsoleMenuAPI {
         }
 
         public void DrawMenu() {
-            for (int i = 0; i < ItemsCount; i++) {
-                if (i == CurrentPosition)
-                    Console.Write(cursorMenuString);
+            for (int i = 0; i < ItemsCount; i++) 
                 if (Items[i].Visible)
-                    Items[i].Draw();
-            }
+                    ConsoleMenuDrawer.DrawLine(i == CurrentPosition, Items[i].GetString());
         }
 
         protected virtual void Draw() {
@@ -146,6 +139,16 @@ namespace ConsoleMenuAPI {
 
         protected override void ProcessInput(ConsoleKey input) {
             ProcessInputByItem(input);
+        }
+    }
+
+    public static class ConsoleMenuDrawer {
+        const string cursorMenuString = "\t---> ";
+        const string startTabString = "\t";
+        const string endLineString = "\n\n";
+
+        public static void DrawLine(bool drawCursor, string itemLine) {
+            Console.Write(startTabString + (drawCursor ? cursorMenuString : "") + itemLine + endLineString);
         }
     }
 }

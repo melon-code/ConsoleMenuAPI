@@ -14,7 +14,7 @@ namespace ConsoleMenuAPI {
             Name = newName;
         }
 
-        public abstract void Draw();
+        public abstract string GetString();
         public abstract void ProcessInput(ConsoleKey input);
     }
 }
