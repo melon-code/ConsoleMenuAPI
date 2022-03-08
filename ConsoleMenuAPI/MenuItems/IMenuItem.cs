@@ -8,6 +8,5 @@ namespace ConsoleMenuAPI {
 
         string GetString();
         void ProcessInput(ConsoleKey input);
-        void ChangeName(string newName);
     }
 }

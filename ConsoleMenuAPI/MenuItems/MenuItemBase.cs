@@ -2,16 +2,14 @@
 
 namespace ConsoleMenuAPI {
     public abstract class MenuItemBase : IMenuItem {
+        readonly INameHandler nameHandler;
+
         public bool Visible { get; set; } = true;
         public bool Interactive { get; set; } = true;
-        public string Name { get; private set; }
+        public string Name => nameHandler.GetName();
 
-        protected MenuItemBase(string name) {
-            Name = name;
-        }
-
-        public void ChangeName(string newName) {
-            Name = newName;
+        protected MenuItemBase(ItemName name) {
+            nameHandler = name.NameHandler;
         }
 
         public abstract string GetString();

@@ -15,14 +15,22 @@ namespace ConsoleMenuAPI {
         readonly int minValue;
         readonly int maxValue;
 
-        public IntMenuItem(string name, int defaultValue, int minLimit, int maxLimit) : base(name, defaultValue) {
+        IntMenuItem(ItemName name, int defaultValue, int minLimit, int maxLimit) : base(name, defaultValue) {
             minValue = minLimit;
             maxValue = maxLimit;
+        }
+
+        public IntMenuItem(string name, int defaultValue, int minLimit, int maxLimit) : this(new ItemName(name), defaultValue, minLimit, maxLimit) {
+        }
+
+        public IntMenuItem(int localizationKey, int defaultValue, int minLimit, int maxLimit) : this(new ItemName(localizationKey), defaultValue, minLimit, maxLimit) {
         }
 
         public IntMenuItem(string name, int defaultValue) : this(name, defaultValue, int.MinValue, int.MaxValue) {
         }
 
+        public IntMenuItem(int localizationKey, int defaultValue) : this(localizationKey, defaultValue, int.MinValue, int.MaxValue) {
+        }
 
         public override string GetString() {
             return Name + string.Format(" < {0} >", Value);

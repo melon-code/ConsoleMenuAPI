@@ -4,8 +4,14 @@ namespace ConsoleMenuAPI {
     public class InsertedMenuItem : StringMenuItem, IMenuValueItem<ConsoleMenu> {
         public ConsoleMenu Value { get; }
 
-        public InsertedMenuItem(string name, ConsoleMenu insertedMenu) : base(name) {
+        InsertedMenuItem(ItemName name, ConsoleMenu insertedMenu) : base(name) {
             Value = insertedMenu;
+        }
+
+        public InsertedMenuItem(string name, ConsoleMenu insertedMenu) : this(new ItemName(name), insertedMenu) {
+        }
+
+        public InsertedMenuItem(int localizationKey, ConsoleMenu insertedMenu) : this(new ItemName(localizationKey), insertedMenu) {
         }
 
         public override void ProcessInput(ConsoleKey input) {

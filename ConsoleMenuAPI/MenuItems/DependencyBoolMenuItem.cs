@@ -4,9 +4,15 @@ namespace ConsoleMenuAPI {
     public class DependencyBoolMenuItem : BoolMenuItem {
         readonly IList<DependencyItem> items;
 
-        public DependencyBoolMenuItem(string name, bool defaultValue, IList<DependencyItem> dependencyItems) : base(name, defaultValue) {
+        DependencyBoolMenuItem(ItemName name, bool defaultValue, IList<DependencyItem> dependencyItems) : base(name, defaultValue) {
             items = dependencyItems;
             SyncDependency(defaultValue);
+        }
+
+        public DependencyBoolMenuItem(string name, bool defaultValue, IList<DependencyItem> dependencyItems) : this(new ItemName(name), defaultValue, dependencyItems) {
+        }
+
+        public DependencyBoolMenuItem(int localizationKey, bool defaultValue, IList<DependencyItem> dependencyItems) : this(new ItemName(localizationKey), defaultValue, dependencyItems) {
         }
 
         void SyncDependency(bool value) {

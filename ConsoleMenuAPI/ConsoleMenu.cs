@@ -3,8 +3,6 @@ using System.Collections.Generic;
 
 namespace ConsoleMenuAPI {
     public abstract class ConsoleMenu {
-        readonly bool hasExitItem = false;
-
         bool IsExitSelected => CurrentItem is ExitItem;
         bool IsContinueSelected => CurrentItem is ContinueItem;
         int ItemsCount { get { return Items.Count; } }
@@ -20,18 +18,10 @@ namespace ConsoleMenuAPI {
 
         protected ConsoleMenu(IList<IMenuItem> menuItems, string exitTitle) : this(menuItems) {
             Items.Add(new ExitItem(exitTitle));
-            hasExitItem = true;
         }
 
         protected ConsoleMenu(IList<IMenuItem> menuItems, string exitTitle, string continueTitle) : this(menuItems, exitTitle) {
             Items.Insert(0, new ContinueItem(continueTitle));
-        }
-
-        public void UpdateItemsNames(IList<string> updatedNames) { // todo
-            for (int i = 0; i < updatedNames.Count; i++)
-                Items[i].ChangeName(updatedNames[i]);
-            if (hasExitItem)
-                Items[ItemsCount - 1].ChangeName(Localization.ExitString);
         }
 
         protected T GetValue<T, Type>(int index) where Type : IMenuValueItem<T> {

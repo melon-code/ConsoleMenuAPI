@@ -52,11 +52,15 @@
     <Compile Include="MenuItems\ExitItem.cs" />
     <Compile Include="MenuItems\IMenuItem.cs" />
     <Compile Include="MenuItems\IMenuValueItem.cs" />
+    <Compile Include="MenuItems\ItemName\INameHandler.cs" />
     <Compile Include="MenuItems\InsertedMenuItem.cs" />
     <Compile Include="MenuItems\IntMenuItem.cs" />
     <Compile Include="MenuEndResult.cs" />
+    <Compile Include="MenuItems\ItemName\ItemName.cs" />
+    <Compile Include="MenuItems\ItemName\LocalizationNameHandler.cs" />
     <Compile Include="MenuItems\MenuItemBase.cs" />
     <Compile Include="MenuItems\StringMenuItem.cs" />
+    <Compile Include="MenuItems\ItemName\StringNameHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="MenuItems\ValueBasedItem.cs" />
     <Compile Include="Localization\LocalizationDictionary\RusLangDictionary.cs" />

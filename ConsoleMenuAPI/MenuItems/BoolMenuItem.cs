@@ -2,7 +2,13 @@
 
 namespace ConsoleMenuAPI {
     public class BoolMenuItem : ValueBasedItem<bool>, IMenuValueItem<bool> {
+        protected BoolMenuItem(ItemName name, bool defaultValue) : base(name, defaultValue) {
+        }
+
         public BoolMenuItem(string name, bool defaultValue) : base(name, defaultValue) {
+        }
+
+        public BoolMenuItem(int localizationKey, bool defaultValue) : base(localizationKey, defaultValue) {
         }
 
         public override string GetString() {
