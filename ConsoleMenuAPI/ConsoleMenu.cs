@@ -17,11 +17,27 @@ namespace ConsoleMenuAPI {
         }
 
         protected ConsoleMenu(IList<IMenuItem> menuItems, string exitTitle) : this(menuItems) {
-            Items.Add(new ExitItem(exitTitle));
+            AddExitItem(() => new ExitItem(exitTitle));
+        }
+
+        protected ConsoleMenu(IList<IMenuItem> menuItems, int exitKey) : this(menuItems) {
+            AddExitItem(() => new ExitItem(exitKey));
         }
 
         protected ConsoleMenu(IList<IMenuItem> menuItems, string exitTitle, string continueTitle) : this(menuItems, exitTitle) {
-            Items.Insert(0, new ContinueItem(continueTitle));
+            AddContinueItem(() => new ContinueItem(continueTitle));
+        }
+
+        protected ConsoleMenu(IList<IMenuItem> menuItems, int exitKey, int continueKey) : this(menuItems, exitKey) {
+            AddContinueItem(() => new ContinueItem(continueKey));
+        }
+
+        void AddExitItem(Func<ExitItem> createExitItem) {
+            Items.Add(createExitItem());
+        }
+
+        void AddContinueItem(Func<ContinueItem> createContinueItem) {
+            Items.Insert(0, createContinueItem());
         }
 
         protected T GetValue<T, Type>(int index) where Type : IMenuValueItem<T> {
@@ -131,6 +147,12 @@ namespace ConsoleMenuAPI {
         }
 
         public StandardConsoleMenu(IList<IMenuItem> menuItems, string exitTitle, string continueTitle) : base(menuItems, exitTitle, continueTitle) {
+        }
+
+        public StandardConsoleMenu(IList<IMenuItem> menuItems, int exitKey) : base(menuItems, exitKey) {
+        }
+
+        public StandardConsoleMenu(IList<IMenuItem> menuItems, int exitKey, int continueKey) : base(menuItems, exitKey, continueKey) {
         }
 
         protected override void ProcessInput(ConsoleKey input) {
