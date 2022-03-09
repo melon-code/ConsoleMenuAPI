@@ -6,6 +6,7 @@ namespace ConsoleMenuAPI {
         bool IsExitSelected => CurrentItem is ExitItem;
         bool IsContinueSelected => CurrentItem is ContinueItem;
         int ItemsCount { get { return Items.Count; } }
+        protected ConsoleMenuDrawer Drawer { get; }
         protected IList<IMenuItem> Items { get; }
         protected bool IsEnd { get; set; }
         protected int CurrentPosition { get; private set; } = 0;
@@ -14,6 +15,7 @@ namespace ConsoleMenuAPI {
 
         protected ConsoleMenu(IList<IMenuItem> menuItems) {
             Items = menuItems;
+            Drawer = new ConsoleMenuDrawer();
         }
 
         protected ConsoleMenu(IList<IMenuItem> menuItems, string exitTitle) : this(menuItems) {
@@ -62,11 +64,11 @@ namespace ConsoleMenuAPI {
         public MenuEndResult ShowDialog() {
             IsEnd = false;
             EndResult = MenuEndResult.Further;
-            if (Console.KeyAvailable)
-                Console.ReadKey(true);
+            Drawer.PrepareConsole();
             do {
                 Draw();
             } while (Navigation(Console.ReadKey(true)) && !IsEnd);
+            Drawer.EnableCursor();
             return EndResult;
         }
 
@@ -77,7 +79,7 @@ namespace ConsoleMenuAPI {
         }
 
         protected virtual void Draw() {
-            Console.Clear();
+            ConsoleMenuDrawer.SetCursorToLeftTopCorner();
             DrawMenu();
         }
 
@@ -137,36 +139,5 @@ namespace ConsoleMenuAPI {
         }
 
         protected abstract void ProcessInput(ConsoleKey input);
-    }
-
-    public class StandardConsoleMenu : ConsoleMenu {
-        public StandardConsoleMenu(IList<IMenuItem> menuItems) : base(menuItems) {
-        }
-
-        public StandardConsoleMenu(IList<IMenuItem> menuItems, string exitTitle) : base(menuItems, exitTitle) {
-        }
-
-        public StandardConsoleMenu(IList<IMenuItem> menuItems, string exitTitle, string continueTitle) : base(menuItems, exitTitle, continueTitle) {
-        }
-
-        public StandardConsoleMenu(IList<IMenuItem> menuItems, int exitKey) : base(menuItems, exitKey) {
-        }
-
-        public StandardConsoleMenu(IList<IMenuItem> menuItems, int exitKey, int continueKey) : base(menuItems, exitKey, continueKey) {
-        }
-
-        protected override void ProcessInput(ConsoleKey input) {
-            ProcessInputByItem(input);
-        }
-    }
-
-    public static class ConsoleMenuDrawer {
-        const string cursorMenuString = "\t---> ";
-        const string startTabString = "\t";
-        const string endLineString = "\n\n";
-
-        public static void DrawLine(bool drawCursor, string itemLine) {
-            Console.Write(startTabString + (drawCursor ? cursorMenuString : "") + itemLine + endLineString);
-        }
     }
 }
