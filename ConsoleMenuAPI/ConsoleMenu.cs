@@ -113,9 +113,9 @@ namespace ConsoleMenuAPI {
                     break;
                 case ConsoleKey.Enter:
                     if (IsExitSelected) 
-                        ExitMenu(MenuEndResult.Exit);
+                        return ExitMenu(MenuEndResult.Exit);
                     if (IsContinueSelected)
-                        ExitMenu(MenuEndResult.Further);
+                        return ExitMenu(MenuEndResult.Further);
                     CheckInteractivityAndProcessInput(info.Key);
                     break;
                 case ConsoleKey.Escape:
