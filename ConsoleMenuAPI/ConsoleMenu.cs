@@ -127,6 +127,12 @@ namespace ConsoleMenuAPI {
         public StandardConsoleMenu(IList<IMenuItem> menuItems) : base(menuItems) {
         }
 
+        public StandardConsoleMenu(IList<IMenuItem> menuItems, string exitTitle) : base(menuItems, exitTitle) {
+        }
+
+        public StandardConsoleMenu(IList<IMenuItem> menuItems, string exitTitle, string continueTitle) : base(menuItems, exitTitle, continueTitle) {
+        }
+
         protected override void ProcessInput(ConsoleKey input) {
             ProcessInputByItem(input);
         }
