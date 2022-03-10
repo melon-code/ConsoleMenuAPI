@@ -12,7 +12,7 @@ namespace ConsoleMenuAPI {
         }
 
         public override string GetString() {
-            return Name + string.Format(" < {0} >", Value ? Localization.OnTitle : Localization.OffTitle);
+            return Name + GetBrackets(Value ? Localization.OnTitle : Localization.OffTitle);
         }
 
         public virtual void ChangeValue() {

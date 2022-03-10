@@ -33,7 +33,7 @@ namespace ConsoleMenuAPI {
         }
 
         public override string GetString() {
-            return Name + string.Format(" < {0} >", Value);
+            return Name + GetBrackets(Value);
         }
 
         public void IncrementValue() {

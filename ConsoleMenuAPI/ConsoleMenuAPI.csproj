@@ -60,6 +60,7 @@
     <Compile Include="MenuItems\ItemName\ItemName.cs" />
     <Compile Include="MenuItems\ItemName\LocalizationNameHandler.cs" />
     <Compile Include="MenuItems\MenuItemBase.cs" />
+    <Compile Include="MenuItems\StringListMenuItem.cs" />
     <Compile Include="MenuItems\StringMenuItem.cs" />
     <Compile Include="MenuItems\ItemName\StringNameHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
