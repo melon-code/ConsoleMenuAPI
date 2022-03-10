@@ -23,6 +23,7 @@ namespace ConsoleMenuAPI {
         public override void ChangeValue() {
             base.ChangeValue();
             SyncDependency(Value);
+            ConsoleMenuDrawer.ClearScreen();
         }
     }
 }

@@ -17,7 +17,7 @@ namespace ConsoleMenuAPI {
         public override void ProcessInput(ConsoleKey input) {
             if (input == ConsoleKey.Enter) {
                 Value.ShowDialog();
-                Console.Clear();
+                ConsoleMenuDrawer.ClearScreen();
             }
         }
     }

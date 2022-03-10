@@ -18,6 +18,10 @@ namespace ConsoleMenuAPI {
             Console.SetCursorPosition(0, 0);
         }
 
+        public static void ClearScreen() {
+            Console.Clear();
+        }
+
         const string cursorMenuString = "---> ";
         const string startTabString = "\t";
         const string endLineString = "\n\n";
