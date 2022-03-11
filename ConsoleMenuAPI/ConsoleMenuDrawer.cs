@@ -26,22 +26,24 @@ namespace ConsoleMenuAPI {
         const string startTabString = "\t";
         const string endLineString = "\n\n";
 
-        bool wasCursorVisible = false;
+        CursorVisibilityHandler cursorVisibility;
+
+        void ChangeCursorVisibility(Action change) {
+            if (cursorVisibility == null || cursorVisibility.Couple)
+                cursorVisibility = new CursorVisibilityHandler();
+            change();
+        }
 
         public void DisableCursor() {
-            if (Console.CursorVisible) {
-                Console.CursorVisible = false;
-                wasCursorVisible = true;
-            }
+            ChangeCursorVisibility(() => cursorVisibility.DisableCursor());
         }
 
         public void EnableCursor() {
-            if (wasCursorVisible)
-                Console.CursorVisible = true;
+            ChangeCursorVisibility(() => cursorVisibility.EnableCursor());
         }
 
         public void PrepareConsole() {
-            Console.Clear();
+            ClearScreen();
             DisableCursor();
             while (Console.KeyAvailable) {
                 Console.ReadKey(true);

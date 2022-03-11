@@ -46,7 +46,7 @@ namespace ConsoleMenuAPI {
                 Value--;
         }
 
-        bool ValidateInteger(int number) {
+        bool ValidateAndSetInteger(int number) {
             if (number >= minValue && number <= maxValue) {
                 Value = number;
                 return true;
@@ -55,15 +55,16 @@ namespace ConsoleMenuAPI {
         }
 
         public void InputValue() {
-            Console.Clear();
+            ConsoleMenuDrawer drawer = new ConsoleMenuDrawer();
+            ConsoleMenuDrawer.ClearScreen();
+            drawer.EnableCursor();
             string input;
-            bool isInputValid = false;
             do {
                 Console.Write(Localization.InputNumber);
                 input = Console.ReadLine();
-                if (ValidateStringInput(input) && ValidateInteger(Convert.ToInt32(input)))
-                    isInputValid = true;
-            } while (!isInputValid);
+            } while (!ValidateStringInput(input) || !ValidateAndSetInteger(Convert.ToInt32(input)));
+            drawer.DisableCursor();
+            ConsoleMenuDrawer.ClearScreen();
         }
 
         public override void ProcessInput(ConsoleKey input) {
