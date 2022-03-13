@@ -33,7 +33,7 @@ namespace ConsoleMenuAPI {
         }
 
         public override string GetString() {
-            return Name + GetBrackets(Value);
+            return Name + GetBrackets(Value) + cleaner;
         }
 
         public void IncrementValue() {
@@ -48,6 +48,7 @@ namespace ConsoleMenuAPI {
 
         bool ValidateAndSetInteger(int number) {
             if (number >= minValue && number <= maxValue) {
+                cleaner = ConsoleMenuDrawer.GetCleaner(number.ToString().Length - Value.ToString().Length);
                 Value = number;
                 return true;
             }

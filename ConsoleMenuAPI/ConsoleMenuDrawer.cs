@@ -3,15 +3,17 @@ using System.Text;
 
 namespace ConsoleMenuAPI {
     public class ConsoleMenuDrawer {
-        static string GetCleaner() {
+        public static string GetCleaner(int length) {
+            if (length <= 0)
+                return string.Empty;
             StringBuilder builder = new StringBuilder();
-            for (int i = 0; i < cursorMenuString.Length; i++)
-                builder.Append(" ");
+            for (int i = 0; i < length; i++)
+                builder.Append(space);
             return builder.ToString();
         }
 
         public static void DrawLine(bool drawCursor, string itemLine) {
-            Console.Write(startTabString + (drawCursor ? cursorMenuString : "") + itemLine + GetCleaner() + endLineString);
+            Console.Write(startTabString + (drawCursor ? cursorMenuString : "") + itemLine + GetCleaner(cursorMenuString.Length) + endLineString);
         }
 
         public static void SetCursorToLeftTopCorner() {
@@ -22,9 +24,12 @@ namespace ConsoleMenuAPI {
             Console.Clear();
         }
 
+        const string space = " ";
         const string cursorMenuString = "---> ";
         const string startTabString = "\t";
         const string endLineString = "\n\n";
+
+        public static int CursorLength => cursorMenuString.Length;
 
         CursorVisibilityHandler cursorVisibility;
 

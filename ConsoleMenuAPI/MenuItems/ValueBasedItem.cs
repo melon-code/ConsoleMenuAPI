@@ -4,6 +4,10 @@
             return string.Format(" < {0} >", insideValue);
         }
 
+        protected string cleaner = string.Empty;
+
+        protected int AcceptedDiff => ConsoleMenuDrawer.CursorLength;
+
         public T Value { get; protected set; }
 
         protected ValueBasedItem(ItemName name, T defaultValue) : base(name) {
@@ -14,6 +18,11 @@
         }
 
         protected ValueBasedItem(int localizationKey, T defaultValue) : this(new ItemName(localizationKey), defaultValue) {
+        }
+
+        protected void UpdateCleaner(int lengthDifference) {
+            if (lengthDifference > AcceptedDiff)
+                cleaner = ConsoleMenuDrawer.GetCleaner(lengthDifference);
         }
     }
 }

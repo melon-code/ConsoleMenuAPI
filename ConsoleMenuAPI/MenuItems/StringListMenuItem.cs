@@ -4,14 +4,15 @@ using System.Linq;
 using System.Text;
 
 namespace ConsoleMenuAPI {
-    public class StringListMenuItem : ValueBasedItem<IList<string>>, IMenuValueItem<IList<string>> {
+    public class StringListMenuItem : ValueBasedItem<int>, IMenuValueItem<int> {
         const int minIndex = 0;
 
-        int currentIndex;
-        int MaxIndex => Value.Count - 1;
+        readonly IList<string> list;
 
-        StringListMenuItem(ItemName name, IList<string> stringList, int startIndex) : base(name, stringList) {
-            currentIndex = startIndex;
+        int MaxIndex => list.Count - 1;
+
+        StringListMenuItem(ItemName name, IList<string> stringList, int startIndex) : base(name, startIndex) {
+            list = stringList;
         }
 
         public StringListMenuItem(string name, IList<string> stringList) : this(new ItemName(name), stringList, minIndex) {
@@ -27,14 +28,18 @@ namespace ConsoleMenuAPI {
         }
 
         public override string GetString() {
-            return Name + GetBrackets(Value[currentIndex]);
+            return Name + GetBrackets(list[Value]) + cleaner;
         }
 
         public override void ProcessInput(ConsoleKey input) {
-            if (input == ConsoleKey.LeftArrow && currentIndex > minIndex)
-                currentIndex--;
-            if (input == ConsoleKey.RightArrow && currentIndex < MaxIndex)
-                currentIndex++;
+            if (input == ConsoleKey.LeftArrow && Value > minIndex)
+                UpdateCleaner(Value, --Value);
+            if (input == ConsoleKey.RightArrow && Value < MaxIndex)
+                UpdateCleaner(Value, ++Value);
+        }
+
+        void UpdateCleaner(int currentIndex, int nextIndex) {
+            UpdateCleaner(list[currentIndex].Length - list[nextIndex].Length);
         }
     }
 }
