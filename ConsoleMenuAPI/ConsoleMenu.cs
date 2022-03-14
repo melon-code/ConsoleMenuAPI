@@ -50,7 +50,7 @@ namespace ConsoleMenuAPI {
         }
 
         protected int GetInt(int index) {
-            return GetValue<int, IntMenuItem>(index);
+            return GetValue<int, IMenuValueItem<int>>(index);
         }
 
         protected bool GetBool(int index) {
