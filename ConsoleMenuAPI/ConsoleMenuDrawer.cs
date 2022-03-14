@@ -33,6 +33,8 @@ namespace ConsoleMenuAPI {
 
         CursorVisibilityHandler cursorVisibility;
 
+        public bool ClearScreenInitially { get; set; } = true;
+
         void ChangeCursorVisibility(Action change) {
             if (cursorVisibility == null || cursorVisibility.Couple)
                 cursorVisibility = new CursorVisibilityHandler();
@@ -48,11 +50,11 @@ namespace ConsoleMenuAPI {
         }
 
         public void PrepareConsole() {
-            ClearScreen();
+            if (ClearScreenInitially)
+                ClearScreen();
             DisableCursor();
-            while (Console.KeyAvailable) {
+            while (Console.KeyAvailable) 
                 Console.ReadKey(true);
-            }
         }
     }
 }
