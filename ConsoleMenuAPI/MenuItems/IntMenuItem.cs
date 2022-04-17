@@ -12,10 +12,18 @@ namespace ConsoleMenuAPI {
             return valid;
         }
 
+        static int ValidateDefaultValue(int value, int min, int max) {
+            if (value < min)
+                return min;
+            if (value > max)
+                return max;
+            return value;
+        }
+
         readonly int minValue;
         readonly int maxValue;
 
-        IntMenuItem(ItemName name, int defaultValue, int minLimit, int maxLimit) : base(name, defaultValue) {
+        IntMenuItem(ItemName name, int defaultValue, int minLimit, int maxLimit) : base(name, ValidateDefaultValue(defaultValue, minLimit, maxLimit)) {
             minValue = minLimit;
             maxValue = maxLimit;
         }
