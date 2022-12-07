@@ -46,6 +46,7 @@
     <Compile Include="Localization\LocalizationDictionary\EngLangDictionary.cs" />
     <Compile Include="Localization\Localization.cs" />
     <Compile Include="Localization\LocalizationDictionary\LocalizationDictionary.cs" />
+    <Compile Include="MenuItemList.cs" />
     <Compile Include="MenuItems\BoolMenuItem.cs" />
     <Compile Include="ConsoleMenu.cs" />
     <Compile Include="MenuItems\ContinueItem.cs" />

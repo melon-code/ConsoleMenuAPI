@@ -7,58 +7,42 @@ namespace ConsoleMenuAPI {
         bool IsContinueSelected => CurrentItem is ContinueItem;
         int ItemsCount { get { return Items.Count; } }
         protected ConsoleMenuDrawer Drawer { get; }
-        protected IList<IMenuItem> Items { get; }
+        protected MenuItemList Items { get; }
         protected bool IsEnd { get; set; }
         protected int CurrentPosition { get; private set; } = 0;
         protected IMenuItem CurrentItem => Items[CurrentPosition];
         public MenuEndResult EndResult { get; protected set; }
 
-        protected ConsoleMenu(IList<IMenuItem> menuItems) {
-            Items = menuItems;
+        ConsoleMenu(Func<MenuItemList> createItemMenuList) {
+            Items = createItemMenuList();
             Drawer = new ConsoleMenuDrawer();
         }
 
-        protected ConsoleMenu(IList<IMenuItem> menuItems, string exitTitle) : this(menuItems) {
-            AddExitItem(() => new ExitItem(exitTitle));
+        protected ConsoleMenu(IList<IMenuItem> menuItems) : this(() => new MenuItemList(menuItems)) {
         }
 
-        protected ConsoleMenu(IList<IMenuItem> menuItems, int exitKey) : this(menuItems) {
-            AddExitItem(() => new ExitItem(exitKey));
+        protected ConsoleMenu(IList<IMenuItem> menuItems, string exitTitle) : this(() => new MenuItemList(menuItems, exitTitle)) {
         }
 
-        protected ConsoleMenu(IList<IMenuItem> menuItems, string exitTitle, string continueTitle) : this(menuItems, exitTitle) {
-            AddContinueItem(() => new ContinueItem(continueTitle));
+        protected ConsoleMenu(IList<IMenuItem> menuItems, int exitKey) : this(() => new MenuItemList(menuItems, exitKey)) {
         }
 
-        protected ConsoleMenu(IList<IMenuItem> menuItems, int exitKey, int continueKey) : this(menuItems, exitKey) {
-            AddContinueItem(() => new ContinueItem(continueKey));
+        protected ConsoleMenu(IList<IMenuItem> menuItems, string exitTitle, string continueTitle) : this(() => new MenuItemList(menuItems, exitTitle, continueTitle)) {
         }
 
-        void AddExitItem(Func<ExitItem> createExitItem) {
-            Items.Add(createExitItem());
-        }
-
-        void AddContinueItem(Func<ContinueItem> createContinueItem) {
-            Items.Insert(0, createContinueItem());
-        }
-
-        protected T GetValue<T, Type>(int index) where Type : IMenuValueItem<T> {
-            var item = Items[index];
-            if (item is Type)
-                return ((Type)item).Value;
-            throw new ArgumentException();
+        protected ConsoleMenu(IList<IMenuItem> menuItems, int exitKey, int continueKey) : this(() => new MenuItemList(menuItems, exitKey, continueKey)) {
         }
 
         protected int GetInt(int index) {
-            return GetValue<int, IMenuValueItem<int>>(index);
+            return Items.GetInt(index);
         }
 
         protected bool GetBool(int index) {
-            return GetValue<bool, BoolMenuItem>(index);
+            return Items.GetBool(index);
         }
 
         protected ConsoleMenu GetInsertedMenu(int index) {
-            return GetValue<ConsoleMenu, InsertedMenuItem>(index);
+            return Items.GetInsertedMenu(index);
         }
 
         public MenuEndResult ShowDialog() {

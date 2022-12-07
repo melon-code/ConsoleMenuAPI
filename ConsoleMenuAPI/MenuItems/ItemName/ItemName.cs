@@ -1,13 +1,15 @@
 ﻿namespace ConsoleMenuAPI {
     public class ItemName {
-        public INameHandler NameHandler { get; }
+        readonly INameHandler nameHandler;
+
+        public string Value => nameHandler.GetName();
 
         public ItemName(int localizationKey) {
-            NameHandler = new LocalizationNameHandler(localizationKey);
+            nameHandler = new LocalizationNameHandler(localizationKey);
         }
 
         public ItemName(string name) {
-            NameHandler = new StringNameHandler(name);
+            nameHandler = new StringNameHandler(name);
         }
     }
 }
