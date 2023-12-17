@@ -1,24 +1,20 @@
 ﻿using System.Collections.Generic;
 
 namespace ConsoleMenuAPI {
-    public class LocalizationDictionary {
+    public abstract class LocalizationDictionary : ILocalizationDictionary {
         const string errorString = "NULL";
-        public const int OnTitleKey = 1;
-        public const int OffTitleKey = 2;
-        public const int InputNumberKey = 3;
-        public const int ExitStringKey = 4;
 
         readonly protected Dictionary<int, string> dictionary;
 
         public string this[int key] => GetItem(key);
+        public abstract ServiceItemsLocalization ServiceLocalization { get; }
 
-        protected LocalizationDictionary(string onTitle, string offTitle, string inputNumber, string exitString) {
-            dictionary = new Dictionary<int, string>{
-                { OnTitleKey, onTitle },
-                { OffTitleKey, offTitle },
-                { InputNumberKey, inputNumber },
-                { ExitStringKey, exitString }
-            };
+        protected LocalizationDictionary(Dictionary<int, string> localization) {
+            dictionary = localization;
+        }
+
+        protected LocalizationDictionary() {
+            dictionary = new Dictionary<int, string>();
         }
 
         public string GetItem(int key) {

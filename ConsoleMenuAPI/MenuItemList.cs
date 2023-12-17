@@ -35,6 +35,7 @@ namespace ConsoleMenuAPI {
                 return valueItem.Value;
             throw new ArgumentException();
         }
+
         public int GetInt(int index) {
             return GetValue<int, IMenuValueItem<int>>(index);
         }

@@ -43,9 +43,18 @@
   <ItemGroup>
     <Compile Include="ConsoleMenuDrawer.cs" />
     <Compile Include="CursorVisibilityHandler.cs" />
+    <Compile Include="Localization\LocalizationDictionary\ExternalLocalizationDictionary.cs" />
+    <Compile Include="Localization\LocalizationDictionary\ILocalizationDictionary.cs" />
+    <Compile Include="Localization\FileLocalization\ILocalizationFile.cs" />
+    <Compile Include="Localization\FileLocalization\LocalizationDictionaryFromFile.cs" />
     <Compile Include="Localization\LocalizationDictionary\EngLangDictionary.cs" />
     <Compile Include="Localization\Localization.cs" />
+    <Compile Include="Localization\LocalizationDictionary\InternalLocalizationDicitonary.cs" />
     <Compile Include="Localization\LocalizationDictionary\LocalizationDictionary.cs" />
+    <Compile Include="Localization\LocalizationErrors.cs" />
+    <Compile Include="Localization\FileLocalization\LocalizationXMLFile.cs" />
+    <Compile Include="Localization\NotNull.cs" />
+    <Compile Include="Localization\ServiceItemsLocalization.cs" />
     <Compile Include="MenuItemList.cs" />
     <Compile Include="MenuItems\BoolMenuItem.cs" />
     <Compile Include="ConsoleMenu.cs" />

@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<localization>
+  <dictionary lang="eng">
+  </dictionary>
+  <dictionary lang="rus">
+    <onTitle>Вкл</onTitle>
+    <offTitle>Выкл</offTitle>
+  </dictionary>
+</localization>

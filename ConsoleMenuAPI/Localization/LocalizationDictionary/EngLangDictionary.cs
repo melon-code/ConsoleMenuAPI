@@ -1,5 +1,5 @@
 ﻿namespace ConsoleMenuAPI {
-    public class EngLangDictionary : LocalizationDictionary {
+    public class EngLangDictionary : InternalLocalizationDicitonary {
         const string onTitle = "On";
         const string offTitle = "Off";
         const string inputNumber = "Input integer value: ";

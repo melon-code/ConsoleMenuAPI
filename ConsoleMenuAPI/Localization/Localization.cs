@@ -1,15 +1,14 @@
-﻿using System.Collections.Generic;
-
-namespace ConsoleMenuAPI {
+﻿namespace ConsoleMenuAPI {
     public static class Localization {
-        static LocalizationDictionary currentDictionary = new RusLangDictionary();
+        static ILocalizationDictionary currentDictionary = new RusLangDictionary();
 
-        public static string OnTitle => currentDictionary.GetItem(LocalizationDictionary.OnTitleKey);
-        public static string OffTitle => currentDictionary.GetItem(LocalizationDictionary.OffTitleKey);
-        public static string InputNumber => currentDictionary.GetItem(LocalizationDictionary.InputNumberKey);
-        public static string ExitString => currentDictionary.GetItem(LocalizationDictionary.ExitStringKey);
+        static ServiceItemsLocalization ServiceLocalization => currentDictionary.ServiceLocalization;
+        public static string OnTitle => ServiceLocalization.OnTitle;
+        public static string OffTitle => ServiceLocalization.OffTitle;
+        public static string InputNumber => ServiceLocalization.InputNumber;
+        public static string ExitString => ServiceLocalization.ExitString;
 
-        public static void ChangeLanguage(LocalizationDictionary dictionary) {
+        public static void ChangeLanguage(ILocalizationDictionary dictionary) {
             currentDictionary = dictionary;
         }
 
