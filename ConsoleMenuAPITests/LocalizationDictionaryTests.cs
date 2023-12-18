@@ -5,10 +5,10 @@ using System;
 
 namespace ConsoleMenuAPITests {
     public class LocalizationDictionaryTests {
-        int OnKey => ExternalLocalizationDictionary.OnTitleKey.GetHashCode();
-        int OffKey => ExternalLocalizationDictionary.OffTitleKey.GetHashCode();
-        int InputKey => ExternalLocalizationDictionary.InputNumberKey.GetHashCode();
-        int ExitKey => ExternalLocalizationDictionary.ExitStringKey.GetHashCode();
+        int OnKey => Utility.OnKey;
+        int OffKey => Utility.OffKey;
+        int InputKey => Utility.InputKey;
+        int ExitKey => Utility.ExitKey;
         
         public static void ConstructorTest(Dictionary<int, string> dictionary) {
             Utility.AssertException(() => new ExternalLocalizationDictionary(dictionary), LocalizationErrors.NoMenuItemsLocalization.Message);

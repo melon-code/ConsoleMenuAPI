@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<localization>
+  <dictionary lang="eng">
+    <onTitle>On</onTitle>
+    <offTitle>Off</offTitle>
+    <inputNumber>Input number:</inputNumber>
+    <exit>Exit</exit>
+  </dictionary>
+  <dictionary lang="rus">
+    <onTitle>Вкл</onTitle>
+    <offTitle>Выкл</offTitle>
+    <inputNumber>Введите число:</inputNumber>
+    <exit>Выход</exit>
+  </dictionary>
+</localization>
