@@ -43,6 +43,8 @@
   <ItemGroup>
     <Compile Include="ConsoleMenuDrawer.cs" />
     <Compile Include="CursorVisibilityHandler.cs" />
+    <Compile Include="Localization\FileLocalization\StringKeyToHash\KeyStringToHash.cs" />
+    <Compile Include="Localization\FileLocalization\StringKeyToHash\KeyStringToHashArray.cs" />
     <Compile Include="Localization\LocalizationDictionary\ExternalLocalizationDictionary.cs" />
     <Compile Include="Localization\LocalizationDictionary\ILocalizationDictionary.cs" />
     <Compile Include="Localization\FileLocalization\ILocalizationFile.cs" />
@@ -53,7 +55,7 @@
     <Compile Include="Localization\LocalizationDictionary\LocalizationDictionary.cs" />
     <Compile Include="Localization\LocalizationErrors.cs" />
     <Compile Include="Localization\FileLocalization\LocalizationXMLFile.cs" />
-    <Compile Include="Localization\NotNull.cs" />
+    <Compile Include="Localization\FileLocalization\NotNull.cs" />
     <Compile Include="Localization\ServiceItemsLocalization.cs" />
     <Compile Include="MenuItemList.cs" />
     <Compile Include="MenuItems\BoolMenuItem.cs" />
