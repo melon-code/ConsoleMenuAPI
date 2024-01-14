@@ -33,40 +33,6 @@ namespace ConsoleMenuAPI {
         protected ConsoleMenu(IList<IMenuItem> menuItems, int exitKey, int continueKey) : this(() => new MenuItemList(menuItems, exitKey, continueKey)) {
         }
 
-        protected int GetInt(int index) {
-            return Items.GetInt(index);
-        }
-
-        protected bool GetBool(int index) {
-            return Items.GetBool(index);
-        }
-
-        protected ConsoleMenu GetInsertedMenu(int index) {
-            return Items.GetInsertedMenu(index);
-        }
-
-        public MenuEndResult ShowDialog() {
-            IsEnd = false;
-            EndResult = MenuEndResult.Further;
-            Drawer.PrepareConsole();
-            do {
-                Draw();
-            } while (Navigation(Console.ReadKey(true)) && !IsEnd);
-            Drawer.EnableCursor();
-            return EndResult;
-        }
-
-        public void DrawMenu() {
-            for (int i = 0; i < ItemsCount; i++) 
-                if (Items[i].Visible)
-                    ConsoleMenuDrawer.DrawLine(i == CurrentPosition, Items[i].GetString());
-        }
-
-        protected virtual void Draw() {
-            ConsoleMenuDrawer.SetCursorToLeftTopCorner();
-            DrawMenu();
-        }
-
         void ChangeCurrentPosition(bool increase) {
             int iterations = 0;
             do {
@@ -87,6 +53,34 @@ namespace ConsoleMenuAPI {
         void CheckInteractivityAndProcessInput(ConsoleKey input) {
             if (CurrentItem.Interactive)
                 ProcessInput(input);
+        }
+
+        bool ExitMenu(MenuEndResult endResult) {
+            EndResult = endResult;
+            return false;
+        }
+
+        protected int GetInt(int index) {
+            return Items.GetInt(index);
+        }
+
+        protected bool GetBool(int index) {
+            return Items.GetBool(index);
+        }
+
+        protected ConsoleMenu GetInsertedMenu(int index) {
+            return Items.GetInsertedMenu(index);
+        }
+
+        protected void DrawMenu() {
+            for (int i = 0; i < ItemsCount; i++)
+                if (Items[i].Visible)
+                    ConsoleMenuDrawer.DrawLine(i == CurrentPosition, Items[i].GetString());
+        }
+
+        protected virtual void Draw() {
+            ConsoleMenuDrawer.SetCursorToLeftTopCorner();
+            DrawMenu();
         }
 
         protected bool Navigation(ConsoleKeyInfo info) {
@@ -113,15 +107,21 @@ namespace ConsoleMenuAPI {
             return true;
         }
 
-        bool ExitMenu(MenuEndResult endResult) {
-            EndResult = endResult;
-            return false;
-        }
-
         protected void ProcessInputByItem(ConsoleKey input) {
             CurrentItem.ProcessInput(input);
         }
 
         protected abstract void ProcessInput(ConsoleKey input);
+
+        public MenuEndResult ShowDialog() {
+            IsEnd = false;
+            EndResult = MenuEndResult.Further;
+            Drawer.PrepareConsole();
+            do {
+                Draw();
+            } while (Navigation(Console.ReadKey(true)) && !IsEnd);
+            Drawer.EnableCursor();
+            return EndResult;
+        }
     }
 }
